@@ -1,5 +1,5 @@
 import turtle
-
+import math
 
 print("4.1")
 
@@ -11,6 +11,8 @@ def square(t):
 
 
 bob = turtle.Turtle()
+circle_draw = turtle.Turtle()
+circle_draw.color("Blue")
 square(bob)
 
 
@@ -30,23 +32,43 @@ square(bob, 25)
 print('4.3')
 
 
-def polygon(t, length, n):
+def polyline(t, n, length, angle):
     for i in range(n):
-        t.right(360.0/n)
-        t.forward(length)
+        t.fd(length)
+        t.lt(angle)
+
+
+def polygon(t, length, n):
+    """
+    Draws n line segments with the given length and
+    angle (in degrees) between them. t is a turtle.
+    """
+    angle = 360/n
+    polyline(t, n, length, angle)
 
 
 polygon(bob, 100, 7)
 
 
+print("4.5")
+
+
+def arc(t, r, angle):
+    arc_length = 2 * math.pi * r * angle / 360
+    n = int(arc_length / 3) + 1
+    step_length = arc_length / n
+    step_angle = angle / n
+    polyline(t, n, step_length, step_angle)
+
+
+arc(bob, 45, 90)
+
+
 print("4.4")
 
 
-def circle(t, radius):
-    polygon(t, radius, 360)
+def circle(t, r):
+    arc(t, r, 360)
 
 
-circle(bob, 2)
-
-
-# skipping 4.5 because nah.
+circle(circle_draw, 100)
